@@ -35,17 +35,22 @@ def plantTree():
     confirmation = input("Confirm transaction? y(yes) / N(no): ")
     if confirmation == "y":
         clearConsole()
-        collection.insert_one(
-            {
-                "_id": name,
-                "data": {"name": name,
-                         "address": address,
-                         "funds": funds,
-                         "trees": trees,
-                         "remnant": remnant,
-                         },
-            }
-        )
+        filter = {"_id": name}
+        if not collection.find_one(filter):
+            collection.insert_one(
+                {
+                    "_id": name,
+                    "data": {"name": name,
+                             "address": address,
+                             "funds": funds,
+                             "trees": trees,
+                             "remnant": remnant,
+                             },
+                }
+            )
+        else:
+            print()
+            # this is my comment
         print("Funds have been successfully transferred.\nThanks for your contribution to Green Future of generations!")
         print('-' * 15)
 
@@ -85,7 +90,7 @@ def fundsTransferred():
     data = collection_3.find().sort('record_time', -1)
     for i in data:
         print('')
-        print(f"Record time: {i['record_time']} -|- Total surplus funds: {i['total_remnant']}")
+        print(f"Record time: {i['record_time']} -|- Total surplus funds: {i['total_remnant']}$")
         print(f"[Medical sector: {i['medical_treatment']}$ -|- Water supply: {i['water_supply']}$ -|- Infrastructure maintaince: {i['home_repairs']}$]")
         print('')
     print('-' * 15)
