@@ -50,7 +50,6 @@ def plantTree():
             )
         else:
             print()
-            # this is my comment
         print("Funds have been successfully transferred.\nThanks for your contribution to Green Future of generations!")
         print('-' * 15)
 
